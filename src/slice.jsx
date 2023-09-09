@@ -22,6 +22,11 @@ export const ecomSlice = createSlice({
     toggleCart: function (state) {
       state.showCart = !state.showCart;
     },
+    removeFromCart: function(state, action){
+      state.cart = state.cart.filter((cartItem) => {
+        return cartItem.id !== action.payload.id
+      })
+    }
   },
 
   extraReducers: {
@@ -30,10 +35,10 @@ export const ecomSlice = createSlice({
     },
     [fetchData.fulfilled]: function (state, action) {
       state.isLoading = false;
-      if(state.categories.length === 0)
+      if (state.categories.length === 0)
         action.payload.forEach((product) => {
-        state.categories = [...state.categories, product.category]
-      })
+          state.categories = [...state.categories, product.category];
+        });
       state.products = action.payload;
     },
     [fetchData.rejected]: function (state) {
@@ -42,5 +47,5 @@ export const ecomSlice = createSlice({
   },
 });
 
-export const { addToCart, toggleCart } = ecomSlice.actions;
+export const { addToCart, toggleCart, isInCart, removeFromCart } = ecomSlice.actions;
 export default ecomSlice.reducer;

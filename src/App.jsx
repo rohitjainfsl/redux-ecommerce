@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchData, addToCart } from "./slice";
+import { fetchData, addToCart, removeFromCart } from "./slice";
 import "./App.css";
 import Cart from "./Cart";
 import Header from "./Header";
@@ -16,9 +16,16 @@ function App() {
     dispatch(fetchData());
   }, []);
 
-  function trimmed(input){
-    const titleArr = input.split(" ")
-    return titleArr.length > 8 ? titleArr.slice(0, 9).join(" ") : input
+  function trimmed(input) {
+    const titleArr = input.split(" ");
+    return titleArr.length > 8 ? titleArr.slice(0, 9).join(" ") : input;
+  }
+
+  function isInCart(input) {
+    const isPresent = init.cart.find((cartItem) => {
+      return cartItem.id === input;
+    });
+    return isPresent !== undefined ? true : false;
   }
 
   if (init.isLoading) {
@@ -38,12 +45,19 @@ function App() {
                     <AttachMoneyIcon />
                     {product.price}
                   </p>
-                  <button
-                    onClick={() => dispatch(addToCart(product))}
-                    className="addToCart"
-                  >
-                    Add To Cart
-                  </button>
+
+                  {isInCart(product.id) ? (
+                    <button onClick={() => dispatch(removeFromCart(product))}>
+                      Remove From Cart
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => dispatch(addToCart(product))}
+                      className="addToCart"
+                    >
+                      Add To Cart
+                    </button>
+                  )}
                 </div>
               );
             })}
