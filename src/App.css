@@ -1,0 +1,94 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.cart.sticky {
+  position: fixed;
+  right: -250px;
+  top: 0;
+  height: 100vh;
+  width: 300px;
+  transition: all 0.45s ease-out;
+  display: flex;
+}
+.cart.sticky ul {
+  background-color: rgb(126 93 94 / 80%);
+  padding: 2rem 0.5rem;
+  width: calc(100% - 45px);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cart.sticky .handle {
+  width: 45px;
+  height: 50px;
+  padding: 0 0.5rem;
+  border: 1px solid #000;
+  border-right: none;
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.45s ease-out;
+  position: relative;
+  top: 20%;
+}
+.cart.sticky .handle:hover {
+  background-color: #000;
+  color: #fff;
+  box-shadow: 0 0 3px 4px rgba(0, 0, 0, 0.4);
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  padding: 0.35rem;
+  margin: 0.25rem 0;
+}
+.cartItem img {
+  width: 40px;
+}
+.cartItem h5,
+.cartItem p {
+  margin: 0 0.25rem;
+}
