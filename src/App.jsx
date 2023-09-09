@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchData, addToCart } from "./slice";
 import "./App.css";
 import Cart from "./Cart";
+import Header from "./Header";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
 function App() {
@@ -15,9 +16,12 @@ function App() {
     dispatch(fetchData());
   }, []);
 
-  console.log(init.cart);
+  function trimmed(input){
+    const titleArr = input.split(" ")
+    return titleArr.length > 8 ? titleArr.slice(0, 9).join(" ") : input
+  }
 
-  if (init.isLoading === false) {
+  if (init.isLoading) {
     return <div className="loader">LOADING...</div>;
   } else {
     return (
@@ -29,7 +33,7 @@ function App() {
               return (
                 <div className="product" key={index}>
                   <img src={product.image} alt={product.image} />
-                  <h3>{product.title}</h3>
+                  <h3>{trimmed(product.title)}</h3>
                   <p>
                     <AttachMoneyIcon />
                     {product.price}

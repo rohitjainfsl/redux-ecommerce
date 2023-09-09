@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const fetchData = createAsyncThunk("ecommerce/fetchData", async () => {
   const response = await axios.get("https://fakestoreapi.com/products");
-  console.log(response.data);
   return response.data;
 });
 
@@ -11,32 +10,37 @@ export const ecomSlice = createSlice({
   name: "ecommerce",
   initialState: {
     products: [],
-    isLoading: false,
+    isLoading: true,
     cart: [],
-    showCart: false
+    showCart: false,
+    categories: [],
   },
   reducers: {
-    addToCart: function(state, action){
-        state.cart = [...state.cart, action.payload]
+    addToCart: function (state, action) {
+      state.cart = [...state.cart, action.payload];
     },
-    toggleCart: function(state){
-        state.showCart = !state.showCart
-    }
+    toggleCart: function (state) {
+      state.showCart = !state.showCart;
+    },
   },
 
   extraReducers: {
-    [fetchData.pending]: function (state, action) {
-      state.isLoading = false;
+    [fetchData.pending]: function (state) {
+      state.isLoading = true;
     },
     [fetchData.fulfilled]: function (state, action) {
-      state.isLoading = true;
+      state.isLoading = false;
+      if(state.categories.length === 0)
+        action.payload.forEach((product) => {
+        state.categories = [...state.categories, product.category]
+      })
       state.products = action.payload;
     },
-    [fetchData.rejected]: function (state, action) {
-      state.isLoading = false;
+    [fetchData.rejected]: function (state) {
+      state.isLoading = true;
     },
   },
 });
 
-export const {addToCart, toggleCart} = ecomSlice.actions
+export const { addToCart, toggleCart } = ecomSlice.actions;
 export default ecomSlice.reducer;

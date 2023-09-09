@@ -12,7 +12,7 @@ function Cart() {
   return (
     <div
       className="cart sticky"
-      style={{right: init.showCart ? '0' : '-250px'}}
+      style={{right: init.showCart ? '0' : '-256px'}}
     >
         <div className="handle" onClick={() => dispatch(toggleCart())}>
             <h3>Cart</h3>
